@@ -1,0 +1,10 @@
+{
+  "list": [
+    {
+      "value" : "someVal1"
+    },
+    {
+      "value": "someVal2"
+    }
+  ]
+}

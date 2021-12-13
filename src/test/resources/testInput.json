@@ -1,0 +1,19 @@
+{
+  "someString": "someString",
+  "someInt": 11222,
+  "someDouble": 2222.33,
+  "someBoolean": true,
+  "someArray": [
+    "item1",
+    "item2"
+  ],
+  "someObject": {
+    "innerString": {
+      "value": "someInnerValue"
+    },
+    "someEmptyObject": {
+
+    },
+    "someNullKey": null
+  }
+}
