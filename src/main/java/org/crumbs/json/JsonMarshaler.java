@@ -64,9 +64,11 @@ public class JsonMarshaler {
             for (Field field : clazz.getDeclaredFields()) {
                 // skip transient fields
                 if (!Modifier.isTransient(field.getModifiers())) {
+                    field.setAccessible(true);
                     JsonNode newChild = new JsonNode();
                     newChild.setKey(field.getName());
                     newChild.setValue(field.get(node.getValue()));
+                    field.setAccessible(false);
                     node.getChildren().add(newChild);
                     buildTree(newChild);
                 }
