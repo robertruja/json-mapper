@@ -13,8 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.crumbs.json.JsonToken.TOKEN_OBJECT_END;
-import static org.crumbs.json.JsonToken.TOKEN_OBJECT_START;
+import static org.crumbs.json.JsonToken.*;
 
 public class JsonMapper {
 
@@ -39,9 +38,9 @@ public class JsonMapper {
             return sb.toString();
         } else if (root.getType().equals(JsonType.ARRAY)) {
             StringBuilder sb = new StringBuilder();
-            sb.append(TOKEN_OBJECT_START);
+            sb.append(TOKEN_ARRAY_START);
             JsonMarshaler.buildJson(root, sb);
-            sb.append(TOKEN_OBJECT_END);
+            sb.append(TOKEN_ARRAY_END);
             return sb.toString();
         } else {
             throw new JsonMarshalException("Can not serialize to json from type: " + root.getClass().getName());
