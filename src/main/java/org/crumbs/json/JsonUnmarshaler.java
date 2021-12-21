@@ -98,18 +98,21 @@ public class JsonUnmarshaler {
             node.setValue(Boolean.FALSE);
         } else if(result.equals("null")) {
             node.setType(JsonType.NULL);
-        } else if(result.matches("^\\d*\\.?\\d*$")) {
+        } else if(result.matches("^-*\\d*\\.?\\d*$")) {
             node.setType(JsonType.NUMBER);
             try {
                 if(result.contains(".")) {
                     node.setValue(Double.parseDouble(result));
                 } else {
-                    node.setValue(Integer.parseInt(result));
+                    try {
+                        node.setValue(Integer.parseInt(result));
+                    } catch (NumberFormatException e) {
+                        node.setValue(Long.parseLong(result));
+                    }
                 }
             } catch (NumberFormatException ex) {
                 throw new JsonUnmarshalException("Could not read number value: " + result);
             }
-
         } else {
             throw new JsonUnmarshalException("Could not read value: " + result);
         }

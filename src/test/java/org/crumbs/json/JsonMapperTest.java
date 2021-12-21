@@ -95,11 +95,30 @@ public class JsonMapperTest {
         private List<InnerString> list;
     }
 
+    static class UpdatePasswordRequest {
+        private long id;
+        private String key;
+        private String username;
+        private String password;
+        private int someInt;
+
+        @Override
+        public String toString() {
+            return "UpdatePasswordRequest{" +
+                    "id=" + id +
+                    ", key='" + key + '\'' +
+                    ", username='" + username + '\'' +
+                    ", password='" + password + '\'' +
+                    ", someInt=" + someInt +
+                    '}';
+        }
+    }
+
     @Test
     public void shouldUnmarshalSuccessfully() throws JsonUnmarshalException {
-        String input = FileUtil.readResource("testInput2.json");
-        Pojo2 result = new JsonMapper().unmarshal(input.getBytes(), Pojo2.class);
+        String input = FileUtil.readResource("testInput3.json");
+        UpdatePasswordRequest result = new JsonMapper().unmarshal(input.getBytes(), UpdatePasswordRequest.class);
         Assert.assertNotNull(result);
-
+        System.out.println(result);
     }
 }
