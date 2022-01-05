@@ -26,7 +26,9 @@ public class JsonMapper {
     }
 
     public String marshal(Object input) throws JsonMarshalException, IllegalAccessException {
-
+        if(input == null) {
+            return "";
+        }
         JsonNode root = new JsonNode();
         root.setValue(input);
         JsonMarshaler.buildTree(root);
