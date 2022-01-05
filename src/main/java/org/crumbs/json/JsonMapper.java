@@ -56,6 +56,12 @@ public class JsonMapper {
         return (T) mapTo(root, clazz, null);
     }
 
+    public <T, U> T unmarshal(byte[] input, TypeReference<U> reference) throws JsonUnmarshalException {
+        String json = new String(input, charset);
+        JsonNode root = JsonUnmarshaler.buildTree(json);
+        return (T) mapTo(root, reference.getGenericType(), reference.getTypeArgument());
+    }
+
     private Object mapTo(JsonNode node, Class<?> clazz, Class<?> genericType) throws JsonUnmarshalException {
         switch (node.getType()) {
             case STRING:
