@@ -102,6 +102,10 @@ public class JsonMapperTest {
         private String password;
         private int someInt;
 
+        public String getUsername() {
+            return username;
+        }
+
         @Override
         public String toString() {
             return "UpdatePasswordRequest{" +
@@ -119,6 +123,7 @@ public class JsonMapperTest {
         String input = FileUtil.readResource("testInput3.json");
         UpdatePasswordRequest result = new JsonMapper().unmarshal(input.getBytes(), UpdatePasswordRequest.class);
         Assert.assertNotNull(result);
+        Assert.assertEquals("some username", result.getUsername());
         System.out.println(result);
     }
 }

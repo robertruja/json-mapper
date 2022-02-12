@@ -9,7 +9,7 @@ public class JsonUnmarshaler {
     private static final int VALUE_MAX_LENGTH = 50;
 
     static JsonNode buildTree(String input) throws JsonUnmarshalException {
-        Iterator iterator = new Iterator(input.replaceAll("\\s+", "").toCharArray());
+        Iterator iterator = new Iterator(Util.spaceRemover(input.toCharArray()));
         if(iterator.get() == TOKEN_OBJECT_START) {
             return readObject(iterator);
         }
