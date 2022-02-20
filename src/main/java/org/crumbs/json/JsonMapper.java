@@ -3,6 +3,7 @@ package org.crumbs.json;
 import org.crumbs.json.exception.JsonMarshalException;
 import org.crumbs.json.exception.JsonUnmarshalException;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
@@ -94,7 +95,9 @@ public class JsonMapper {
     private Object mapObject(JsonNode node, Class<?> clazz) throws JsonUnmarshalException {
         Object instance;
         try {
-            instance = clazz.getDeclaredConstructor().newInstance();
+            Constructor constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            instance = constructor.newInstance();
             for (Field field : clazz.getDeclaredFields()) {
                 String name = field.getName().toLowerCase();
                 for (JsonNode child : node.getChildren()) {
