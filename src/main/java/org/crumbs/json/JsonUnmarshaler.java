@@ -41,6 +41,9 @@ public class JsonUnmarshaler {
 
     private static JsonNode readObjectEntry(Iterator iterator) throws JsonUnmarshalException {
         String key = readString(iterator);
+        if(key.isEmpty()) {
+            throw new JsonUnmarshalException("Json entry cannot have empty key");
+        }
         if(iterator.get() != TOKEN_KEY_VAL_SEPARATOR) {
             throw new JsonUnmarshalException("Expected char: " + TOKEN_KEY_VAL_SEPARATOR);
         }
@@ -104,11 +107,7 @@ public class JsonUnmarshaler {
                 if(result.contains(".")) {
                     node.setValue(Double.parseDouble(result));
                 } else {
-                    try {
-                        node.setValue(Integer.parseInt(result));
-                    } catch (NumberFormatException e) {
-                        node.setValue(Long.parseLong(result));
-                    }
+                    node.setValue(Long.parseLong(result));
                 }
             } catch (NumberFormatException ex) {
                 throw new JsonUnmarshalException("Could not read number value: " + result);
@@ -148,9 +147,6 @@ public class JsonUnmarshaler {
             throw new JsonUnmarshalException("Unexpected end of input");
         }
         String result = sb.toString();
-        if(result.isEmpty()) {
-            throw new JsonUnmarshalException("Json entry cannot have empty key");
-        }
         iterator.nextToken();
         return result;
     }

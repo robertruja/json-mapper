@@ -126,4 +126,17 @@ public class JsonMapperTest {
         Assert.assertEquals("some username", result.getUsername());
         System.out.println(result);
     }
+
+    public static class InnerObj {
+        private String someKey;
+    }
+
+    @Test
+    public void shouldUnmarshalWithTypeReference() throws JsonUnmarshalException {
+        String input = FileUtil.readResource("testInput5.json");
+        List<InnerObj> result = new JsonMapper().unmarshal(input.getBytes(), new TypeReference<List<InnerObj>>(){});
+        Assert.assertNotNull(result);
+        Assert.assertEquals("someVal", result.get(0).someKey);
+        System.out.println(result);
+    }
 }

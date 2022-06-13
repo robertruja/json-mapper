@@ -109,7 +109,12 @@ public class JsonMapper {
                             case NULL:
                             case STRING:
                             case NUMBER:
-                                field.set(instance, child.getValue());
+                                if(type.equals(Integer.class) || type.equals(int.class)) {
+                                    int val = ((Long)child.getValue()).intValue();
+                                    field.set(instance, val);
+                                } else {
+                                    field.set(instance, child.getValue());
+                                }
                                 break;
                             case ARRAY:
                                 ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();

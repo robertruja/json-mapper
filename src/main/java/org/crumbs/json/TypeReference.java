@@ -3,7 +3,7 @@ package org.crumbs.json;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public class TypeReference<T> {
+public abstract class TypeReference<T> {
 
     public Class<?> getTypeArgument() {
         return fromType(((ParameterizedType)((ParameterizedType) this.getClass().getGenericSuperclass())
